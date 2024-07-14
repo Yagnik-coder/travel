@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Cost Calculator</title>
+    
+    <style>
+/* styles.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 50px; /* You can adjust the size as needed */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-right: 10px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#result {
+    font-size: 20px;
+    color: green;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    margin-top: 20px;
+}
+
+.result-hidden {
+    display: none;
+}
+
+.section {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+
+    </style>
+</head>
+<body>
+  <header class="header">
+    <img src="images/logo.png" alt="Company Logo" class="logo">
+    <nav>
+        <ul>
+            <li><a href="contact.html">Contact Form</a></li>
+            <li><a href="base.html">About Us</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    <h1>Trip Cost Calculator</h1>
+    <form id="costCalculator">
+        <div class="input-group">
+            <label for="distance">Distance (in kilometers):</label>
+            <input type="number" id="distance" required>
+        </div>
+        <div class="input-group">
+            <label for="fuelEfficiency">Fuel Efficiency (km per liter):</label>
+            <input type="number" id="fuelEfficiency" required>
+        </div>
+        <div class="input-group">
+            <label for="fuelCost">Fuel Cost (per liter):</label>
+            <input type="number" step="0.01" id="fuelCost" required>
+        </div>
+        <button type="button" onclick="calculateCost()">Calculate</button>
+        <button type="reset" onclick="resetResult()">Reset</button>
+    </form>
+    <div id="result" class="result-hidden"></div>
+</div>
+
+    <script>
+      // script.js
+function calculateCost() {
+    let distance = document.getElementById('distance').value;
+    let fuelEfficiency = document.getElementById('fuelEfficiency').value;
+    let fuelCost = document.getElementById('fuelCost').value;
+
+    let resultDiv = document.getElementById('result');
+
+    if (distance && fuelEfficiency && fuelCost) {
+        let cost = (distance / fuelEfficiency) * fuelCost;
+        resultDiv.innerHTML = `Total trip cost: $${cost.toFixed(2)}`;
+        resultDiv.classList.remove('result-hidden');
+        resultDiv.style.opacity = 0;
+        setTimeout(() => { resultDiv.style.opacity = 1; }, 10); // Trigger fade-in
+    } else {
+        resultDiv.innerHTML = "Please fill in all fields.";
+        resultDiv.classList.remove('result-hidden');
+        resultDiv.style.opacity = 0;
+        setTimeout(() => { resultDiv.style.opacity = 1; }, 10); // Trigger fade-in
+    }
+}
+
+function resetResult() {
+    let resultDiv = document.getElementById('result');
+    resultDiv.style.opacity = 0;
+    setTimeout(() => { resultDiv.classList.add('result-hidden'); }, 1000); // Wait for fade-out
+}
+
+    </script>
+</body>
+</html>
